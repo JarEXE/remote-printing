@@ -14,7 +14,7 @@ dotenv.config({
 
 const app = express();
 const publicDirectory = path.join(__dirname, "./public");
-const basePath = process.env.BASE_URL;
+const basePath = "/remoteprint";
 
 // 1 year cache time for everything under public folder
 const cacheTime = process.env.PUBLIC_DIRECTORY_CACHE_TIME;
