@@ -17,7 +17,9 @@ router.get("/", (req, res) => {
   // } else {
   //   res.redirect("/login");
   // }
-  res.render("home", { layout: false });
+
+  res.redirect(basePath);
+  //res.render("home", { layout: false });
 });
 
 router.post("/fileUpload", (req, res) => {
