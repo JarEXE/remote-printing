@@ -5,6 +5,8 @@ const fs = require("fs");
 
 const router = express.Router();
 
+const basePath = process.env.BASE_URL;
+
 router.get("/", (req, res) => {
   // if (req.user) {
   //   res.render("index", {
@@ -38,7 +40,7 @@ router.post("/fileUpload", (req, res) => {
   );
 });
 
-router.post("/print", (req, res) => {
+router.post(basePath + "/print", (req, res) => {
   const { format, orientation, color, fileName } = req.body;
   const filePath = path.join(__dirname, "../uploads", fileName);
 

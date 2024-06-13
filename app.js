@@ -14,11 +14,12 @@ dotenv.config({
 
 const app = express();
 const publicDirectory = path.join(__dirname, "./public");
+const basePath = process.env.BASE_URL;
 
 // 1 year cache time for everything under public folder
 const cacheTime = process.env.PUBLIC_DIRECTORY_CACHE_TIME;
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(publicDirectory, { maxAge: cacheTime }));
+app.use(basePath, express.static(publicDirectory, { maxAge: cacheTime }));
 
 // Set up Handlebars with helpers
 const hbs = exphbs.create({
@@ -60,7 +61,7 @@ app.use(
 );
 
 // Define Routes directory
-app.use("/", require("./routes/pages"));
+app.use(basePath + "/", require("./routes/pages"));
 
 app.listen(process.env.PORT, (err) =>
   !err
