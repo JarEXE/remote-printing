@@ -58,7 +58,6 @@ app.use(
     createParentPath: true,
   })
 );
-
 // Define Routes directory
 app.use("/", require("./routes/pages"));
 
