@@ -2,8 +2,13 @@ const express = require("express");
 const path = require("path");
 const { exec } = require("child_process");
 const fs = require("fs");
+const dotenv = require("dotenv");
+dotenv.config({
+  path: "./.env",
+});
 
 const router = express.Router();
+const printerName = process.env.PRINTER_NAME;
 
 router.get("/", (req, res) => {
   // if (req.user) {
@@ -39,11 +44,11 @@ router.post("/fileUpload", (req, res) => {
 });
 
 router.post("/print", (req, res) => {
-  const { format, orientation, color, fileName } = req.body;
+  const { format, orientation, color, fileName, duplex, copies } = req.body;
   const filePath = path.join(__dirname, "../uploads", fileName);
 
   exec(
-    `lp -d C3850 -o media=${format} -o orientation-requested=${orientation} -o KMSelectColor=${color} "${filePath}"`,
+    `lp -d ${printerName} -o media=${format} -o orientation-requested=${orientation} -o KMSelectColor=${color} -o KMDuplex=${duplex} -n ${copies} "${filePath}"`,
     (error, stdout, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
@@ -59,12 +64,12 @@ router.post("/print", (req, res) => {
       fs.unlink(filePath, (err) => {
         if (err) {
           console.error(`Error deleting file: ${err.message}`);
-          res.status(500).send(`Error deleting file: ${err.message}`);
+          res.status(500).json(`Error deleting file: ${err.message}`);
           return;
         }
       });
 
-      res.status(200).json("Print successful!");
+      res.status(200).json("Printing successful!");
     }
   );
 });

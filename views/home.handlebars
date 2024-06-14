@@ -12,46 +12,82 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <link rel="stylesheet" href="/sweetalert2.css" />
     <link rel="stylesheet" href="/bootstrap.min.css" />
     <link rel="stylesheet" href="/styles.css" />
     <title>Remote Printing</title>
   </head>
   <body>
     <div class="printing-configs-container">
-      <div class="wrapper">
-        <header>REMOTE PRINTING TEST</header>
-        <form action="#" id="uploadForm">
-          <input class="file-input" type="file" name="file" hidden />
-          <i class="fas fa-cloud-upload-alt"></i>
-          <p>Browse Files to Upload</p>
-        </form>
-        <section class="progress-area"></section>
-        <section class="uploaded-area"></section>
+      <div class="wrapper" id="wrapper">
+        <div
+          style="position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%)"
+        >
+          <header>REMOTE PRINTING TEST</header>
+          <form action="#" id="uploadForm">
+            <input class="file-input" type="file" name="file" hidden />
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Click or Drag File Here to Upload</p>
+          </form>
+          <section class="progress-area"></section>
+          <section class="uploaded-area"></section>
+        </div>
       </div>
 
       <div class="printing-configs">
-        <form class="form-inline" action="/print" method="post">
-          <label style="font-weight: bold;" for="format">Format:</label>
-          <select class="form-select" name="format" id="format">
+        <form id="printForm" class="form-inline" action="/print" method="post">
+          <label
+            class="form-label"
+            style="font-weight: bold;"
+            for="format"
+          >Format:</label>
+          <select class="form-select mb-4" name="format" id="format">
             <option value="A4">A4</option>
             <option value="A3">A3</option>
           </select>
-          <br /><br />
+
           <label
+            class="form-label"
             style="font-weight: bold;"
             for="orientation"
           >Orientation:</label>
-          <select class="form-select" name="orientation" id="orientation">
+          <select class="form-select mb-4" name="orientation" id="orientation">
             <option value="3">Portrait</option>
             <option value="4">Landscape</option>
           </select>
-          <br /><br />
-          <label style="font-weight: bold;" for="color">Color mode:</label>
-          <select class="form-select" name="color" id="color">
+
+          <label class="form-label" style="font-weight: bold;" for="color">Color
+            mode:</label>
+          <select class="form-select mb-4" name="color" id="color">
             <option value="True">Full color</option>
             <option value="False">Grayscale</option>
           </select>
-          <br /><br />
+
+          <label
+            class="form-label"
+            style="font-weight: bold;"
+            for="duplex"
+          >Double-Sided or One-Sided:</label>
+          <select class="form-select mb-4" name="duplex" id="duplex">
+            <option value="2Sided">Duplex (Double-Sided)</option>
+            <option value="1Sided">Simplex (One-Sided)</option>
+          </select>
+
+          <label
+            class="form-label"
+            style="font-weight: bold;"
+            for="copies"
+          >Number of copies:</label>
+          <input
+            class="form-control mb-4"
+            type="number"
+            name="copies"
+            id="copies"
+            min="1"
+            max="100"
+            step="1"
+            value="1"
+          />
           <input
             type="text"
             name="fileName"
@@ -59,17 +95,19 @@
             readonly=""
             hidden=""
           />
-          <br /><br />
-          <input
-            class="btn btn-primary"
-            type="submit"
-            value="Print!"
-            id="print-button"
-          />
+
+          <button class="btn btn-primary" type="button" id="print-button">
+            Print!
+          </button>
+
         </form>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/sweetalert2.js"></script>
     <script src="/xhr2FileUpload.js"></script>
+    <script src="/printdocs.js"></script>
     <script src="/bootstrap.bundle.min.js"></script>
   </body>
 </html>
