@@ -19,7 +19,7 @@ router.post("/fileUpload", (req, res) => {
     return res.status(400);
   }
 
-  let uploadedFile = req.files.file;
+  let uploadedFile = req.files.file[0];
 
   // Use the mv() method to place the file somewhere on server
   uploadedFile.mv(
