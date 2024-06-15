@@ -10,16 +10,7 @@ dotenv.config({
 const router = express.Router();
 const printerName = process.env.PRINTER_NAME;
 
-router.get("/", (req, res) => {
-  // if (req.user) {
-  //   res.render("index", {
-  //     user: req.user,
-  //     username:
-  //       req.user.username.charAt(0).toUpperCase() + req.user.username.slice(1),
-  //   });
-  // } else {
-  //   res.redirect("/login");
-  // }
+router.get(["/", "/remoteprint/"], (req, res) => {
   res.render("home", { layout: false });
 });
 
